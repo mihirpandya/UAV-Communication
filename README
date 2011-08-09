@@ -1,1 +1,21 @@
-hello testing
+/********* Wi-Fi Communication by creating sockets in POSIX threads *********/
+
+mypthread.c is the server-side (UAV) program. Its IP address is stored in IP_ADDR. Run this program first. It will then listen for connections.
+
+mypthread2.c is the client-side (iPad) program. The IP address of the server is stored under IP_ADDR. Running this program will connect it to the server. The POSIX threads should successfully set up and two-way communication is possible. It is set to send text but that can be changed to arrays with minor tweaks in both programs.
+
+/********* Retrieving and processing data from the IMU **********/
+
+Copy the contents of IMU.sql in mysql client. This will create the database IMU with table IMU.
+
+Open IMU.cpp and make the following changes:
+
+	Change the user and password information accordingly, under the function mysqlConnect().
+	
+	Change the directory of IMU.csv on line 133 (LOAD DATA LOCAL INFILE command) to the place where you have stored these files.
+
+Open terminal and go to the directory where these files are stored.
+
+Compile IMU.cpp with the command 'g++ -o IMU $(mysql_config --cflags) IMU.cpp $(mysql_config --libs)' in terminal.
+
+Run IMU. It will create IMU.csv and store data in it. Then it will import data from IMU.csv in the IMU table following which it will print the values of roll, pitch and yaw stored in the database.
